@@ -3,20 +3,20 @@ services:
         - docker
 
 before_install:
-        - docker build -t complexclienttest -f ./client/Dockerfile.dev ./client
+        - docker build -t priddle/complexclienttest -f ./client/Dockerfile.dev ./client
 
 script:
-        - docker run -e CI=true complexclienttest npm run test
+        - docker run -e CI=true priddle/complexclienttest npm run test
 
 after_success:
-        - docker build -t multi-client ./client
-        - docker build -t multi-nginx ./nginx
-        - docker build -t multi-server ./server
-        - docker build -t multi-worker ./worker
+        - docker build -t priddle/multi-client ./client
+        - docker build -t priddle/multi-nginx ./nginx
+        - docker build -t priddle/multi-server ./server
+        - docker build -t priddle/multi-worker ./worker
 # Log into Docker
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin        
 # Push to docker hub
-        - docker push multi-client
-        - docker push multi-nginx
-        - docker push multi-server
-        - docker push multi-worker
+        - docker push priddle/multi-client
+        - docker push priddle/multi-nginx
+        - docker push priddle/multi-server
+        - docker push priddle/multi-worker
